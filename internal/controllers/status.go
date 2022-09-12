@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -22,5 +23,5 @@ func (m *Repository) StatusHandler(c *gin.Context) {
 	}
 
 	c.Header("Content-Type", "application/json")
-	c.JSON(200, status)
+	c.JSON(http.StatusOK, status)
 }
