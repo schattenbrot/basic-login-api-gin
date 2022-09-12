@@ -35,7 +35,7 @@ func Init() AppConfig {
 
 	flag.StringVar(&app.Config.Env, "env", "dev", "the app environment")
 
-	flag.IntVar(&app.Config.Port, "port", 4000, "the port")
+	flag.IntVar(&app.Config.Port, "port", 8080, "the port")
 
 	flag.StringVar(&app.Config.DB.DSN, "dsn", "mongodb://localhost:27017", "the db dsn")
 	flag.StringVar(&app.Config.DB.Name, "dbName", "basic-api-db", "the name of the used database")

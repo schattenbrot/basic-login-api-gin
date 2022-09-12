@@ -1,6 +1,8 @@
 package main
 
 import (
+	"strconv"
+
 	"github.com/schattenbrot/basic-login-api-gin/internal/config"
 	"github.com/schattenbrot/basic-login-api-gin/internal/controllers"
 	"github.com/schattenbrot/basic-login-api-gin/internal/database"
@@ -17,5 +19,5 @@ func main() {
 	controllers.NewHandlers(controllerRepo)
 
 	r := routes.Routes(app)
-	r.Run()
+	r.Run(":" + strconv.Itoa(app.Config.Port))
 }
