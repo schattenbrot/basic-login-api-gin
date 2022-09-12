@@ -39,7 +39,7 @@ func OpenDB(app config.AppConfig) *mongo.Database {
 	if err != nil {
 		app.Logger.Fatal(err)
 	}
-	db := client.Database("basic-login-api-gin")
+	db := client.Database(app.Config.DB.Name)
 
 	return db
 }

@@ -17,7 +17,8 @@ type Config struct {
 		SameSite string
 	}
 	DB struct {
-		DSN string
+		DSN  string
+		Name string
 	}
 	JWT []byte
 }
@@ -37,6 +38,7 @@ func Init() AppConfig {
 	flag.IntVar(&app.Config.Port, "port", 4000, "the port")
 
 	flag.StringVar(&app.Config.DB.DSN, "dsn", "mongodb://localhost:27017", "the db dsn")
+	flag.StringVar(&app.Config.DB.Name, "dbName", "basic-api-db", "the name of the used database")
 
 	var jwt string
 	flag.StringVar(&jwt, "jwt", "wonderfulsecretphrase", "the jwt token secret")
