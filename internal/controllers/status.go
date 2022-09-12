@@ -17,8 +17,8 @@ func (m *Repository) StatusHandler(c *gin.Context) {
 	status := appStatus{
 		Status:      "Available",
 		Uptime:      time.Duration(time.Since(m.App.ServerStartTime).Minutes()),
-		Environment: "dev",
-		Version:     "1.0.0",
+		Environment: m.App.Config.Env,
+		Version:     m.App.Version,
 	}
 
 	c.Header("Content-Type", "application/json")

@@ -50,7 +50,10 @@ func Init() AppConfig {
 
 	flag.StringVar(&app.Config.Cookie.SameSite, "cookieSameSite", "none", "same site policy of cookies")
 
+	flag.Parse()
+
 	app.ServerStartTime = time.Now()
+	app.Version = "1.0.0"
 
 	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)
 	app.Logger = logger
