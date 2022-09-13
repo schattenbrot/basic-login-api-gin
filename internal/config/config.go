@@ -13,8 +13,9 @@ type Config struct {
 	Env    string
 	Cors   []string
 	Cookie struct {
-		Name     string
-		SameSite string
+		Secret []byte
+		Name   string
+		Secure bool
 	}
 	DB struct {
 		DSN  string
@@ -48,9 +49,11 @@ func Init() AppConfig {
 	flag.StringVar(&cors, "cors", "http://* https://*", "the by cors allowed origins")
 	app.Config.Cors = strings.Split(cors, " ")
 
+	var cookieSecret string
+	flag.StringVar(&cookieSecret, "cookieSecret", "verywellkeptsecretphrase", "the cookie token secret")
+	app.Config.Cookie.Secret = []byte(cookieSecret)
 	flag.StringVar(&app.Config.Cookie.Name, "cookieName", "basic-login-api-gin", "the name of the cookie")
-
-	flag.StringVar(&app.Config.Cookie.SameSite, "cookieSameSite", "none", "same site policy of cookies")
+	flag.BoolVar(&app.Config.Cookie.Secure, "cookieSameSite", false, "same site policy of cookies")
 
 	flag.Parse()
 

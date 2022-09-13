@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/schattenbrot/basic-login-api-gin/internal/config"
 	"github.com/schattenbrot/basic-login-api-gin/internal/controllers"
+	"github.com/schattenbrot/basic-login-api-gin/internal/middlewares"
 )
 
 func Routes(app config.AppConfig) *gin.Engine {
@@ -22,6 +23,13 @@ func Routes(app config.AppConfig) *gin.Engine {
 	}))
 
 	r.GET("/", controllers.Repo.StatusHandler)
+
+	r.POST("/register", controllers.Repo.Register)
+	r.POST("/login", controllers.Repo.Login)
+	r.GET("/logout", controllers.Repo.Logout)
+	r.POST("/refresh-token", middlewares.Repo.ParseAuthCookie, controllers.Repo.RefreshAccessToken)
+	r.POST("/revoke-token", middlewares.Repo.ParseAuthCookie, controllers.Repo.RevokeRefreshAccessToken)
+	r.GET("/users/own", middlewares.Repo.IsAuthenticated, controllers.Repo.GetOwnUser)
 
 	return r
 }
