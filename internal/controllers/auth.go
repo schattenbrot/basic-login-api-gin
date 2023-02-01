@@ -13,7 +13,12 @@ import (
 )
 
 func (m *Repository) Login(c *gin.Context) {
-	var loginUser models.User
+	type LoginUser struct {
+		Email string `json:"email"`
+		Image string `json:"image"`
+		Token string `json:"token"`
+	}
+	var loginUser LoginUser
 
 	err := c.BindJSON(&loginUser)
 	if err != nil {
@@ -34,11 +39,12 @@ func (m *Repository) Login(c *gin.Context) {
 
 		// if user does not exist, create user
 		user = &models.User{
-			Email:   loginUser.Email,
-			Image:   loginUser.Image,
-			Roles:   []string{"user"},
-			Created: time.Now(),
-			Updated: time.Now(),
+			Email:             loginUser.Email,
+			Image:             loginUser.Image,
+			GoogleAccessToken: loginUser.Token,
+			Roles:             []string{"user"},
+			Created:           time.Now(),
+			Updated:           time.Now(),
 		}
 
 		oid, err := m.DB.CreateUser(*user)
