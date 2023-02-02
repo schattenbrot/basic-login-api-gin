@@ -70,7 +70,7 @@ func (m *Repository) Login(c *gin.Context) {
 		return
 	}
 
-	// send cookie and access token
+	// send  access token
 	type resp struct {
 		ID             string   `json:"id"`
 		AccessToken    string   `json:"accessToken"`
