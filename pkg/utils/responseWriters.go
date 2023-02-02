@@ -37,5 +37,6 @@ func ErrorJSON(c *gin.Context, err error, status ...int) {
 		Message:    err.Error(),
 	}
 
-	WriteJSON(c, statusCode, theError)
+	c.Header("Content-Type", "application/json")
+	c.JSON(statusCode, theError)
 }

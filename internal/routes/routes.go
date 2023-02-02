@@ -15,8 +15,8 @@ func Routes(app config.AppConfig) *gin.Engine {
 
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     app.Config.Cors,
-		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE"},
-		AllowHeaders:     []string{"Origin"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,
@@ -24,11 +24,7 @@ func Routes(app config.AppConfig) *gin.Engine {
 
 	r.GET("/", controllers.Repo.StatusHandler)
 
-	r.POST("/register", controllers.Repo.Register)
 	r.POST("/login", controllers.Repo.Login)
-	r.GET("/logout", controllers.Repo.Logout)
-	r.POST("/refresh-token", middlewares.Repo.ParseAuthCookie, controllers.Repo.RefreshAccessToken)
-	r.POST("/revoke-token", middlewares.Repo.ParseAuthCookie, controllers.Repo.RevokeRefreshAccessToken)
 	r.GET("/users/own", middlewares.Repo.IsAuthenticated, controllers.Repo.GetOwnUser)
 
 	return r
